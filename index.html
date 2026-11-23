@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#101027">
+<title>AI Photo Magic — Free Online Photo Studio</title>
+<style>
+:root{--bg:#0d0d20;--panel:#17172f;--panel2:#202044;--text:#f7f5ff;--muted:#aaa8c7;--a:#9b75ff;--b:#38d9d0;--line:#303052}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 85% 0%,#29205a 0,transparent 32%),var(--bg);color:var(--text);font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+header{max-width:1120px;margin:auto;padding:22px 22px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand{display:flex;align-items:center;gap:11px;font-weight:800;font-size:20px;letter-spacing:-.4px}.logo{width:42px;height:42px;border-radius:14px;display:grid;place-items:center;background:linear-gradient(135deg,var(--a),var(--b));font-size:23px;box-shadow:0 8px 25px #7b5cff55}
+.tag{color:#d4caff;background:#ffffff10;border:1px solid #ffffff1c;padding:7px 12px;border-radius:99px;font-size:12px}
+main{max-width:1120px;margin:auto;padding:24px 22px 70px}.hero{text-align:center;padding:40px 10px 32px}.eyebrow{color:var(--b);font-size:12px;font-weight:800;letter-spacing:2px;text-transform:uppercase}
+h1{font-size:clamp(36px,7vw,66px);line-height:1.04;letter-spacing:-2.5px;margin:13px 0 15px}h1 span{background:linear-gradient(90deg,#b79aff,#4be5dc);background-clip:text;color:transparent}
+.hero p{max-width:650px;margin:0 auto;color:var(--muted);font-size:17px}
+.layout{display:grid;grid-template-columns: minmax(0,1.25fr) minmax(280px,.75fr);gap:18px;margin-top:25px}
+.card{background:linear-gradient(160deg,#1b1b39,#14142b);border:1px solid var(--line);border-radius:22px;padding:20px;box-shadow:0 18px 50px #0002}
+.card h2{font-size:18px;margin:0 0 5px}.sub{color:var(--muted);font-size:13px;margin:0 0 16px}
+.drop{min-height:310px;border:1.5px dashed #66608d;border-radius:17px;background:#101027;display:flex;align-items:center;justify-content:center;text-align:center;padding:22px;overflow:hidden;position:relative}
+.drop.drag{border-color:var(--b);background:#142b35}.drop img{max-width:100%;max-height:420px;object-fit:contain;border-radius:12px}.upload-icon{font-size:42px;margin-bottom:8px}.drop strong{display:block;font-size:17px}.drop small{display:block;color:var(--muted);margin:5px 0 15px}
+button,.filebtn{border:0;border-radius:12px;padding:11px 16px;background:linear-gradient(100deg,var(--a),#6b80ff);color:white;font-weight:750;font-size:14px;cursor:pointer;display:inline-block}
+button:disabled{opacity:.4;cursor:not-allowed}.secondary{background:#29294b;border:1px solid #45456c;color:#f5f2ff}.actions{display:flex;flex-wrap:wrap;gap:9px;margin-top:14px}
+.tools{display:grid;gap:12px}.tool{padding:14px;border:1px solid var(--line);border-radius:15px;background:#111128}.tool label{font-weight:700;font-size:14px;display:block;margin-bottom:9px}.tool small{color:var(--muted);font-size:12px}
+input[type=range]{width:100%;accent-color:var(--a)}select{width:100%;background:#202044;color:white;border:1px solid #48486d;border-radius:10px;padding:10px}
+.presets{display:flex;gap:8px;flex-wrap:wrap}.presets button{padding:8px 11px;font-size:12px}
+.preview-empty{color:var(--muted)}.notice{margin-top:17px;padding:13px 15px;border-radius:13px;background:#282344;border:1px solid #49406f;color:#d9d2ff;font-size:12px}
+.features{display:grid;grid-template-columns:repeat(3,1fr);gap:13px;margin-top:20px}.feature{background:#17172f;border:1px solid var(--line);padding:17px;border-radius:16px}.feature b{display:block;margin:6px 0 3px}.feature p{margin:0;color:var(--muted);font-size:13px}
+footer{text-align:center;color:#8583a6;font-size:12px;padding:28px 15px 40px}
+@media(max-width:780px){.layout{grid-template-columns:1fr}.features{grid-template-columns:1fr}.hero{padding-top:25px}header{padding:17px}.tag{font-size:11px}main{padding:15px 14px 50px}.drop{min-height:250px}}
+</style>
+</head>
+<body>
+<header><div class="brand"><div class="logo">✦</div>AI Photo Magic</div><div class="tag">FREE ONLINE PHOTO STUDIO</div></header>
+<main>
+<section class="hero"><div class="eyebrow">MAKE EVERY PHOTO MAGICAL</div><h1>Your Photo, <span>Reimagined.</span></h1><p>Upload a photo, try creative looks, adjust the image, and save your result — right in your browser.</p></section>
+<section class="layout">
+<div class="card">
+<h2>Photo workspace</h2><p class="sub">Choose an image from your device to get started.</p>
+<div class="drop" id="drop">
+<div id="empty"><div class="upload-icon">🪄</div><strong>Drop your photo here</strong><small>or choose a JPG, PNG or WEBP image</small><label class="filebtn" for="file">Upload photo</label></div>
+<img id="photo" alt="Your edited photo preview" hidden>
+</div>
+<input id="file" type="file" accept="image/png,image/jpeg,image/webp" hidden>
+<div class="actions"><button id="download" disabled>⬇ Download photo</button><button class="secondary" id="reset" disabled>Reset edits</button></div>
+<div class="notice">Privacy-friendly preview: your selected image is processed locally in this browser and is not uploaded by this demo page.</div>
+</div>
+<aside class="card">
+<h2>Quick edit tools</h2><p class="sub">Adjust the preview and choose a look.</p>
+<div class="tools">
+<div class="tool"><label for="brightness">Brightness <span id="bv">100%</span></label><input id="brightness" type="range" min="50" max="160" value="100"></div>
+<div class="tool"><label for="contrast">Contrast <span id="cv">100%</span></label><input id="contrast" type="range" min="50" max="160" value="100"></div>
+<div class="tool"><label for="saturate">Color <span id="sv">100%</span></label><input id="saturate" type="range" min="0" max="200" value="100"></div>
+<div class="tool"><label for="look">Photo looks</label><select id="look"><option value="none">Original</option><option value="grayscale(1)">Black & white</option><option value="sepia(.75)">Vintage</option><option value="hue-rotate(35deg) saturate(1.3)">Dreamy</option><option value="saturate(1.8) contrast(1.08)">Vibrant</option><option value="contrast(1.2) saturate(.75)">Moody</option></select></div>
+<div class="tool"><label>Quick presets</label><div class="presets"><button class="secondary" data-preset="bright">Bright</button><button class="secondary" data-preset="vintage">Vintage</button><button class="secondary" data-preset="mono">Mono</button></div><small>Presets change the sliders and look above.</small></div>
+</div>
+</aside>
+</section>
+<section class="features">
+<div class="feature"><div>⚡</div><b>Fast editing</b><p>Simple browser-based photo adjustments.</p></div>
+<div class="feature"><div>🔒</div><b>Private preview</b><p>Your image stays on your device in this demo.</p></div>
+<div class="feature"><div>📱</div><b>Mobile friendly</b><p>Works on phones, tablets and computers.</p></div>
+</section>
+</main>
+<footer>© 2026 AI Photo Magic · A free starter website. Add real AI services and hosting before launching publicly.</footer>
+<script>
+const file=document.getElementById('file'),photo=document.getElementById('photo'),empty=document.getElementById('empty'),drop=document.getElementById('drop'),download=document.getElementById('download'),reset=document.getElementById('reset');
+const brightness=document.getElementById('brightness'),contrast=document.getElementById('contrast'),saturate=document.getElementById('saturate'),look=document.getElementById('look');
+let originalUrl=null;
+function update(){photo.style.filter=`brightness(${brightness.value}%) contrast(${contrast.value}%) saturate(${saturate.value}%) ${look.value==='none'?'':look.value}`;document.getElementById('bv').textContent=brightness.value+'%';document.getElementById('cv').textContent=contrast.value+'%';document.getElementById('sv').textContent=saturate.value+'%';}
+function loadImage(f){if(!f||!f.type.startsWith('image/'))return;if(originalUrl)URL.revokeObjectURL(originalUrl);originalUrl=URL.createObjectURL(f);photo.src=originalUrl;photo.hidden=false;empty.hidden=true;download.disabled=false;reset.disabled=false;update();}
+file.addEventListener('change',e=>loadImage(e.target.files[0]));
+['dragenter','dragover'].forEach(ev=>drop.addEventListener(ev,e=>{e.preventDefault();drop.classList.add('drag')}));
+['dragleave','drop'].forEach(ev=>drop.addEventListener(ev,e=>{e.preventDefault();drop.classList.remove('drag')}));
+drop.addEventListener('drop',e=>loadImage(e.dataTransfer.files[0]));
+[brightness,contrast,saturate,look].forEach(el=>el.addEventListener('input',update));
+document.querySelectorAll('[data-preset]').forEach(btn=>btn.addEventListener('click',()=>{const p=btn.dataset.preset;if(p==='bright'){brightness.value=115;contrast.value=105;saturate.value=115;look.value='none'}if(p==='vintage'){brightness.value=105;contrast.value=95;saturate.value=85;look.value='sepia(.75)'}if(p==='mono'){brightness.value=105;contrast.value=115;saturate.value=0;look.value='none'}update()}));
+reset.addEventListener('click',()=>{brightness.value=100;contrast.value=100;saturate.value=100;look.value='none';update()});
+download.addEventListener('click',()=>{if(!photo.src)return;const img=new Image();img.onload=()=>{const c=document.createElement('canvas');c.width=img.naturalWidth;c.height=img.naturalHeight;const x=c.getContext('2d');x.filter=`brightness(${brightness.value}%) contrast(${contrast.value}%) saturate(${saturate.value}%) ${look.value==='none'?'':look.value}`;x.drawImage(img,0,0);const a=document.createElement('a');a.download='ai-photo-magic.png';a.href=c.toDataURL('image/png');a.click()};img.src=photo.src});
+</script>
+</body>
+</html>
